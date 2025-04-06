@@ -1,8 +1,9 @@
-import ColorPicker from "./ColorPicker.jsx"
+import MyToDo from "./MyToDo.jsx"
 function App() {
   return(
     <>
-      <ColorPicker></ColorPicker>
+      <MyToDo></MyToDo>
     </>
   )
 }
+export default App
