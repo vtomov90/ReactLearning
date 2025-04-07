@@ -1,8 +1,8 @@
-import MyToDo from "./MyToDo.jsx"
+import MyComponent from "./MyComponent.jsx"
 function App() {
   return(
     <>
-      <MyToDo></MyToDo>
+      <MyComponent></MyComponent>
     </>
   )
 }
