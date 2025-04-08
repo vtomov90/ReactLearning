@@ -1,24 +1,23 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 
 function MyComponent(){
- const [width, setWidth] = useState(window.innerWidth);
- const [height, setHeight] = useState(window.innerHeight);
 
- useEffect(() => {
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
- }, [])
+  const inputRef = useRef(null)
 
- function handleResize(){
-   setWidth(window.innerWidth);
-   setHeight(window.innerHeight);
- }
+  useEffect(() => {
+    console.log('COMPONENT RENDERED');
+  })
 
- return(
-  <>
-    <p>Window Width: {width}</p>
-    <p>Window Height {height}</p>
-  </>
- )
+  function handleClick(){
+    inputRef.current.focus()
+  }
+  return(
+    <div>
+      <button onClick={handleClick}>
+      Click me!
+    </button>
+    <input ref={inputRef}/>
+    </div>
+  )
 }
 export default MyComponent
