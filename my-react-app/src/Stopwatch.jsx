@@ -9,19 +9,41 @@ function Stopwatch(){
 
     useEffect(() => {
 
+        if(isRuning){
+            intervalIdRef.current = setInterval(() => {
+                setElapsedTime(Date.now() - startTimeRef.current);
+            })
+        }
+
+        return () => {
+            clearInterval(intervalIdRef.current);
+        }
     }, [isRuning])
 
     function start(){
-
+        setIsRuning(true);
+        startTimeRef.current = Date.now - elapsedTime;
     }
-    function stop(){
-
+    function stop(){    
+        setIsRuning(false);
     }
     function reset(){
-
+        setElapsedTime(0);
+        setIsRuning(false)
     }
     function formatTime(){
-        return = `00:00:00`
+
+        let hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+        let minutes = Math.floor(elapsedTime / (1000 * 60 ) % 60);
+        let seconds = Math.floor(elapsedTime / (1000) % 60);
+        let miliseconds = Math.floor((elapsedTime % 1000) / 10);
+
+        hours = String(hours).padStart(2, "0");
+        minutes = String(minutess).padStart(2, "0");
+        seconds = String(seconds).padStart(2, "0");
+        miliseconds = String(miliseconds).padStart(2, "0");
+
+        return  `${hours}:${minutes}:${seconds}${miliseconds}`;
     }
 
     return(
