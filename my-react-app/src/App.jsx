@@ -1,10 +1,10 @@
-import MyDigitalClock from './MyDigitalClock.jsx'
+import Stopwatch from "./Stopwatch.jsx"
 
 function App(){
 
 
   return(
-    <MyDigitalClock/>
+    <Stopwatch/>
   )
 }
 export default App
