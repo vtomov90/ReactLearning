@@ -1,52 +1,52 @@
-import React, {useState, useEffect, useRef} from "react"
-function Stopwatch(){
+import React, { useState, useEffect, useRef } from "react";
 
-
-    const [isRuning, setIsRuning] = useState(false);
-    const [elipsedTime, setElapsedTime] = useState(0);
+function Stopwatch() {
+    const [isRunning, setIsRunning] = useState(false);
+    const [elapsedTime, setElapsedTime] = useState(0);
     const intervalIdRef = useRef(null);
     const startTimeRef = useRef(0);
 
     useEffect(() => {
-
-        if(isRuning){
+        if (isRunning) {
             intervalIdRef.current = setInterval(() => {
                 setElapsedTime(Date.now() - startTimeRef.current);
-            })
+            }, 10); // update every 10ms
         }
 
         return () => {
             clearInterval(intervalIdRef.current);
-        }
-    }, [isRuning])
+        };
+    }, [isRunning]);
 
-    function start(){
-        setIsRuning(true);
-        startTimeRef.current = Date.now - elapsedTime;
+    function start() {
+        setIsRunning(true);
+        startTimeRef.current = Date.now() - elapsedTime;
     }
-    function stop(){    
-        setIsRuning(false);
+
+    function stop() {
+        setIsRunning(false);
     }
-    function reset(){
+
+    function reset() {
         setElapsedTime(0);
-        setIsRuning(false)
+        setIsRunning(false);
     }
-    function formatTime(){
 
+    function formatTime() {
         let hours = Math.floor(elapsedTime / (1000 * 60 * 60));
-        let minutes = Math.floor(elapsedTime / (1000 * 60 ) % 60);
-        let seconds = Math.floor(elapsedTime / (1000) % 60);
-        let miliseconds = Math.floor((elapsedTime % 1000) / 10);
+        let minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
+        let seconds = Math.floor((elapsedTime / 1000) % 60);
+        let milliseconds = Math.floor((elapsedTime % 1000) / 10);
 
         hours = String(hours).padStart(2, "0");
-        minutes = String(minutess).padStart(2, "0");
+        minutes = String(minutes).padStart(2, "0");
         seconds = String(seconds).padStart(2, "0");
-        miliseconds = String(miliseconds).padStart(2, "0");
+        milliseconds = String(milliseconds).padStart(2, "0");
 
-        return  `${hours}:${minutes}:${seconds}${miliseconds}`;
+        return `${hours}:${minutes}:${seconds}:${milliseconds}`;
     }
 
-    return(
+    return (
         <div className="stopwatch">
             <div className="display">{formatTime()}</div>
             <div className="controls">
@@ -55,6 +55,7 @@ function Stopwatch(){
                 <button className="reset-button" onClick={reset}>Reset</button>
             </div>
         </div>
-    )
+    );
 }
-export default Stopwatch
+
+export default Stopwatch;
